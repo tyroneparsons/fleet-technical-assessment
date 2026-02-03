@@ -1,4 +1,4 @@
-﻿namespace Fleet.Modules.Patients.Domain;
+﻿namespace Fleet.Modules.Patients.Contracts;
 
 public class Patient
 {
@@ -8,7 +8,7 @@ public class Patient
     
     public string Name { get; set; } = string.Empty;
     
-    public DateTime DateOfBirth { get; set; }
+    public DateOnly DateOfBirth { get; set; }
     
     public string GPPractice { get; set; } = string.Empty;
 }

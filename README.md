@@ -17,4 +17,12 @@ I have used a basic folder structure based on the recommendations from David Fow
 I have started by creating the host Web API project. I'm using minimal API's for this task as they work well with this architecture, avoiding some of the historical boilerplate with traditional controllers.
 I have then set up a modules folder to host my patient specific module that should hopefully be easily extractable out to a microservice in the future. I created a class library to contain the patients domain.
 
-I then mocked up the call directly in the minimal API host so I have a baseline to start building from. I then put in a placeholder for the unit tests so I can add in the tests as they go.
+I then mocked up the call directly in the minimal API host so I have a baseline to start building from. 
+I put in a placeholder for the unit tests so I can add in the tests as they go.
+
+I started abstracting the logic out. I created a very simple patients repository that uses a simple in memory list as a store. 
+I have gone with a repository pattern here to satisfy the in memory requirement and to make it simple to swap it out for a cache or db etc later. I considered using an in memory entity framework store, but I thought this would be over engineering this too much and introduce additional dependencies. 
+The repository pattern also makes the unit tests easier to write.
+
+I created a Patients Module extensions to register the required service easily using DI. At this point I am also not treating the source data as normalized in the way it might be in a real world system, with links to a normalized GP Practice for example.
+
