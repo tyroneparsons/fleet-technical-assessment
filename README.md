@@ -1,4 +1,6 @@
 # Fleet Technical Assessment
+
+## Thought Process
 This repo contains the source for my submission for the technical assessment. 
 I'll document my thought process here while constructing the solution and provide some info on my decisions and reasoning.
 
@@ -14,3 +16,5 @@ I have used a basic folder structure based on the recommendations from David Fow
 
 I have started by creating the host Web API project. I'm using minimal API's for this task as they work well with this architecture, avoiding some of the historical boilerplate with traditional controllers.
 I have then set up a modules folder to host my patient specific module that should hopefully be easily extractable out to a microservice in the future. I created a class library to contain the patients domain.
+
+I then mocked up the call directly in the minimal API host so I have a baseline to start building from. I then put in a placeholder for the unit tests so I can add in the tests as they go.
