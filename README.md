@@ -38,7 +38,7 @@ The solution follows a Modular Monolith design pattern, prioritizing high cohesi
 - **Minimal APIs:** Leverages .NET 9 Minimal APIs for a lightweight, performant routing layer, avoiding the overhead and boilerplate of traditional Controllers.
 
 ## Initial Strategy
-Traditionally, I might have approached this challenge using a standard MVC pattern—creating a PatientsService to handle business logic behind a PatientsController. However, based on our initial discussion regarding a modular monolith architecture, I decided to showcase a more robust approach.
+Traditionally, I might have approached this challenge using a standard MVC pattern, creating a PatientsService to handle business logic behind a PatientsController. However, based on initial discussion regarding modular monolith architecture, I decided to showcase a more robust approach in line with that architecture.
 
 ## Architectural Decisions
 - **Service Bus Simulation:** I implemented MassTransit to serve as a stand-in for a distributed service bus. This ensures the modules are ready to be split into microservices whenever required.
