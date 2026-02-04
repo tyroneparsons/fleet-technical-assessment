@@ -1,6 +1,43 @@
 # Fleet Technical Assessment
 This repository is my submission for the technical assessment. While arguably over-engineered for the scope of the requirements, I chose this approach to demonstrate how to implement a Modular Monolith architecture that is prepared for future scaling. I've written in some overall decisions as well as left my initial notes made while working through the project at the tailend.
 
+## Running & Testing
+
+### Run the API
+From the https launch profile in Visual Studio
+
+--or--
+
+From the repository root:
+
+```bash
+dotnet run --project --debug src/Fleet.WebApi -c Debug
+```
+
+The API exposes the Patients endpoint:
+
+```http
+GET /patients/{id}
+```
+
+### Calling the API with the `.http` file
+This solution includes an HTTP requests file for manual testing.
+
+- **Step 1** Run the API (see above)
+- **Step 2** Open the `Fleet.WebApi.http` file in Visual Studio
+- **Step 3** Execute the requests from the editor
+
+### Run automated tests
+From the https Test Explorer in Visual Studio
+
+-- or --
+
+From the repository root:
+
+```bash
+dotnet test
+```
+
 ## Architecture Overview
 The solution follows a Modular Monolith design pattern, prioritizing high cohesion and low coupling.
 
@@ -9,7 +46,7 @@ The solution follows a Modular Monolith design pattern, prioritizing high cohesi
 - **Minimal APIs:** Leverages .NET 9 Minimal APIs for a lightweight, performant routing layer, avoiding the overhead and boilerplate of traditional Controllers.
 
 ## Initial Strategy
-Traditionally, I might have approached this challenge using a standard MVC pattern—creating a PatientsService to handle business logic behind a PatientsController. However, based on our initial discussion regarding a modular monolith architecture, I decided to showcase a more robust approach.
+Traditionally, I might have approached this challenge using a standard MVC patternâ€”creating a PatientsService to handle business logic behind a PatientsController. However, based on our initial discussion regarding a modular monolith architecture, I decided to showcase a more robust approach.
 
 ## Architectural Decisions
 - **Service Bus Simulation:** I implemented MassTransit to serve as a stand-in for a distributed service bus. This ensures the modules are ready to be split into microservices whenever required.
@@ -59,3 +96,5 @@ I added an error details object for the not found case so that all the response 
 I am debating if the endpoint registration should sit within the module or not. An endpoints extension could be exposed to make registering all endpoints simple. I am also debating if I should more realistically handle the repository with normalized in memory objects so that the repository to DTO in the consumer makes more realistic sense.
 
 I ended up creating an endpoint registration extension method and simulating the join on the database level using concurrent dictionaries to serve as indices and allow for async execution.
+
+I downgraded Mass Transit so that I can maintain the Apache license requirement when building for release.
