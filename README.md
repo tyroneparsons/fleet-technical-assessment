@@ -4,14 +4,10 @@ This repository is my submission for the technical assessment. While arguably ov
 ## Running & Testing
 
 ### Run the API
-From the https launch profile in Visual Studio
-
---or--
-
-From the repository root:
+You can launch the API using Visual Studio by selecting the https launch profile, or via the terminal from the repository root:
 
 ```bash
-dotnet run --project --debug src/Fleet.WebApi -c Debug
+dotnet run --project src/Fleet.WebApi --launch-profile https
 ```
 
 The API exposes the Patients endpoint:
@@ -28,11 +24,7 @@ This solution includes an HTTP requests file for manual testing.
 - **Step 3** Execute the requests from the editor
 
 ### Run automated tests
-From the https Test Explorer in Visual Studio
-
--- or --
-
-From the repository root:
+Run the suite via Test Explorer in Visual Studio or via the terminal:
 
 ```bash
 dotnet test
