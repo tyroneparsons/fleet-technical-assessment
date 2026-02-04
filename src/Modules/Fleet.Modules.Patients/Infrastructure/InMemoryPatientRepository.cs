@@ -1,4 +1,5 @@
 ﻿using Fleet.Modules.Patients.Contracts;
+using Fleet.Modules.Patients.Entities;
 
 namespace Fleet.Modules.Patients.Infrastructure;
 

@@ -1,4 +1,6 @@
-﻿namespace Fleet.Modules.Patients.Contracts;
+﻿using Fleet.Modules.Patients.Entities;
+
+namespace Fleet.Modules.Patients.Contracts;
 
 public interface IPatientRepository
 {

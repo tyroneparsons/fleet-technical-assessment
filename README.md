@@ -26,3 +26,9 @@ The repository pattern also makes the unit tests easier to write.
 
 I created a Patients Module extensions to register the required service easily using DI. At this point I am also not treating the source data as normalized in the way it might be in a real world system, with links to a normalized GP Practice for example.
 
+I moved on to created a consumer feature for the Get Patient feature using MassTransit, so that this can be moved out to a real service bus at a later stage. I defined all of the possible outcomes including the not found result.
+
+I added an error details object for the not found case so that all the response are nicely typed should you layer on Swagger docs later. This should probably be moved out to a shared portion of the solution to be reused elsewhere, possibly with a solid registry of errors and types.
+
+I am debating if the endpoint registration should sit within the module or not. An endpoints extension could be exposed to make registering all endpoints simple. I am also debating if I should more realistically handle the repository with normalized in memory objects so that the repository to DTO in the consumer makes more realistic sense.
+

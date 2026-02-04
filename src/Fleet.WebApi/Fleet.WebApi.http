@@ -1,7 +1,11 @@
 @host = http://localhost:5254
 
-### Get a specific patient by Id.
-@id = 1
+### Get a specific patient by id.
+@id = 4
 
 GET {{host}}/patients/{{id}}
+Accept: application/json
+
+### Request a patient that does not exist.
+GET {{host}}/patients/999
 Accept: application/json
