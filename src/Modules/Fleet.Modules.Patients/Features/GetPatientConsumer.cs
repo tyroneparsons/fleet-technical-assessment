@@ -1,4 +1,5 @@
-﻿using Fleet.Modules.Patients.Contracts;
+﻿using Fleet.Modules.Patients.Abstractions;
+using Fleet.Modules.Patients.Contracts;
 using MassTransit;
 
 namespace Fleet.Modules.Patients.Features

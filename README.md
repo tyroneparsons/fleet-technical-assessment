@@ -1,4 +1,30 @@
 # Fleet Technical Assessment
+This repository is my submission for the technical assessment. While arguably over-engineered for the scope of the requirements, I chose this approach to demonstrate how to implement a Modular Monolith architecture that is prepared for future scaling. I've written in some overall decisions as well as left my initial notes made while working through the project at the tailend.
+
+## Architecture Overview
+The solution follows a Modular Monolith design pattern, prioritizing high cohesion and low coupling.
+
+- **Vertical Slicing:** Instead of traditional horizontal layers, the project is organized around features. This ensures that all logic for a specific capability (e.g., "Get Patient") resides within the same functional boundary.
+- **Decoupled Communication:** The Host API does not call domain logic directly. Instead, it uses MassTransit as an in-process mediator/service bus. This allows any module to be extracted into a standalone Microservice in the future with minimal code changes, simply by swapping the transport layer from "In-Memory" to RabbitMQ or Azure Service Bus.
+- **Minimal APIs:** Leverages .NET 9 Minimal APIs for a lightweight, performant routing layer, avoiding the overhead and boilerplate of traditional Controllers.
+
+## Initial Strategy
+Traditionally, I might have approached this challenge using a standard MVC pattern—creating a PatientsService to handle business logic behind a PatientsController. However, based on our initial discussion regarding a modular monolith architecture, I decided to showcase a more robust approach.
+
+## Architectural Decisions
+- **Service Bus Simulation:** I implemented MassTransit to serve as a stand-in for a distributed service bus. This ensures the modules are ready to be split into microservices whenever required.
+- **Project Structure:** I followed the folder structure recommendations from David Fowler to ensure the solution remains organized and idiomatic.
+- **Minimal APIs:** I chose Minimal APIs for the host project as they integrate seamlessly with this architecture and eliminate historical controller boilerplate.
+
+## Implementation Details
+- **Module Encapsulation:** I created a dedicated Modules folder containing the Patients domain as a class library. This keeps the domain logic strictly separated from the Web Host.
+- **Repository Pattern:** I implemented a PatientRepository to satisfy the in-memory storage requirement. This abstraction makes it trivial to swap the storage provider for a real database (EF Core) or a cache (Redis) later. I opted against an EF Core In-Memory provider to keep dependencies lean.
+- **Data Simulation:** I eventually moved to a more realistic, normalized data model. Using ConcurrentDictionary allowed me to simulate database indices, ensuring thread-safe, asynchronous execution for lookups.
+- **Feature Consumers:** The "Get Patient" logic is implemented as a MassTransit Consumer. I defined explicit contracts for all possible outcomes, including PatientDetail and PatientNotFound results.
+- **Typed Results & Error Handling:** I introduced an ErrorDetails object for 404 cases. This ensures responses are strongly typed, which is beneficial for generating clean OpenAPI/Swagger documentation.
+
+## Evolution of the Design
+During development, I deliberated on where endpoint registration should live. I ultimately decided on an Endpoint Registration Extension within the module. This allows the host project to remain "thin," simply calling app.MapPatientsModule() without needing to know the internal details of the module's routes.
 
 ## Thought Process
 This repo contains the source for my submission for the technical assessment. 
@@ -32,3 +58,4 @@ I added an error details object for the not found case so that all the response 
 
 I am debating if the endpoint registration should sit within the module or not. An endpoints extension could be exposed to make registering all endpoints simple. I am also debating if I should more realistically handle the repository with normalized in memory objects so that the repository to DTO in the consumer makes more realistic sense.
 
+I ended up creating an endpoint registration extension method and simulating the join on the database level using concurrent dictionaries to serve as indices and allow for async execution.
