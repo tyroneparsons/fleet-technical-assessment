@@ -1,7 +1,6 @@
-﻿namespace Fleet.Modules.Patients.Contracts
+﻿namespace Fleet.Modules.Patients.Contracts;
+
+public record ErrorDetails
 {
-    public record ErrorDetails
-    {
-        public string Message { get; init; } = string.Empty;
-    }
+    public string Message { get; init; } = string.Empty;
 }
